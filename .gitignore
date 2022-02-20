@@ -1,0 +1,19 @@
+#IDE specific files
+.idea/*
+out
+out/*
+target/classes/*
+target/test-classes/*
+target/surefire-reports/*
+settings.xml
+*.iml
+build/
+.gradle
+.gradle/*
+classes/
+# Eclipse
+/bin
+/target
+/.settings
+.classpath
+.project
