@@ -2,17 +2,11 @@ package practise.AppiumFramework;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.ServerSocket;
+
 import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import io.appium.java_client.android.AndroidDriver;
@@ -23,12 +17,6 @@ import io.appium.java_client.service.local.AppiumDriverLocalService;
 public class base {
 	public static AppiumDriverLocalService service;
 	public static AndroidDriver<AndroidElement> driver;
-
-	public static void startEmulator() throws IOException, InterruptedException {
-
-		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\main\\java\\resources\\startEmulator.bat");
-		Thread.sleep(6000);
-	}
 
 	public static AndroidDriver<AndroidElement> capabilities(String appName) throws IOException, InterruptedException {
 
@@ -43,9 +31,7 @@ public class base {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		// String device=(String) prop.get("device");
 		String device = System.getProperty("device");
-		if (device.contains("emulator")) {
-			startEmulator();
-		}
+		
 		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device);
 
 		capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
