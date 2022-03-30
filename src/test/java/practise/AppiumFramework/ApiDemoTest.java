@@ -16,6 +16,8 @@ public class ApiDemoTest extends base {
 	@Test
 	public void apiDemo(String input) throws IOException, InterruptedException {
 		// TODO Auto-generated method stub
+		
+		service=startServer();
 
 		AndroidDriver<AndroidElement> driver = capabilities("apiDemo");
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -48,6 +50,8 @@ public class ApiDemoTest extends base {
 		driver.findElementByClassName("android.widget.EditText").sendKeys(input);
 		// driver.findElementsByClassName("android.widget.Button").get(1).click();
 		p.buttons.get(1).click();
+		
+		service.stop();
 
 	}
 

@@ -9,18 +9,24 @@ import org.testng.annotations.Test;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import pageObjects.FormPage;
 
 public class Ecommerce_tc_4 extends base {
 
 	@Test
 	public void totalValidation() throws IOException, InterruptedException {
 		// 15 -General-Store.apk4.0
+		
+		service=startServer();
 
 		AndroidDriver<AndroidElement> driver = capabilities("GeneralStoreApp");
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.findElement(By.id("com.androidsample.generalstore:id/nameField")).sendKeys("Hello");
+		//driver.findElement(By.id("com.androidsample.generalstore:id/nameField")).sendKeys("Hello");
+		FormPage formPage=new FormPage(driver);
+		formPage.getNameField().sendKeys("hello");
 		driver.hideKeyboard();
-		driver.findElement(By.xpath("//*[@text='Female']")).click();
+		//driver.findElement(By.xpath("//*[@text='Female']")).click();
+		formPage.femaleOption.click();
 		driver.findElement(By.id("android:id/text1")).click();
 		driver.findElementByAndroidUIAutomator(
 				"new UiScrollable(new UiSelector()).scrollIntoView(text(\"Argentina\"));");
@@ -49,6 +55,7 @@ public class Ecommerce_tc_4 extends base {
 		double totalvalue = Double.parseDouble(total);
 		System.out.println("Total value of products: " + totalvalue);
 		Assert.assertEquals(sum, totalvalue);
+		service.stop();
 
 	}
 

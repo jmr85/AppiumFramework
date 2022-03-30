@@ -3,7 +3,7 @@ package practise.AppiumFramework;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.net.ServerSocket;
 import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -18,6 +18,41 @@ public class base {
 	public static AppiumDriverLocalService service;
 	public static AndroidDriver<AndroidElement> driver;
 
+	public AppiumDriverLocalService startServer() {
+		//
+		boolean flag = checkIfServerIsRunnning(4723);
+		if (!flag) {
+
+			service = AppiumDriverLocalService.buildDefaultService();
+			service.start();
+		}
+		return service;
+
+	}
+
+	public static boolean checkIfServerIsRunnning(int port) {
+
+		boolean isServerRunning = false;
+		ServerSocket serverSocket;
+		try {
+			serverSocket = new ServerSocket(port);
+
+			serverSocket.close();
+		} catch (IOException e) {
+			// If control comes here, then it means that the port is in use
+			isServerRunning = true;
+		} finally {
+			serverSocket = null;
+		}
+		return isServerRunning;
+	}
+
+	public static void startEmulator() throws IOException, InterruptedException {
+
+		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\main\\java\\resources\\startEmulator.bat");
+		Thread.sleep(6000);
+	}
+
 	public static AndroidDriver<AndroidElement> capabilities(String appName) throws IOException, InterruptedException {
 
 		FileInputStream fis = new FileInputStream(
@@ -31,7 +66,11 @@ public class base {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		// String device=(String) prop.get("device");
 		String device = System.getProperty("device");
-		
+
+		if (device.contains("emulator")) {
+			startEmulator();
+		}
+
 		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device);
 
 		capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");

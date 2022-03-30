@@ -8,6 +8,11 @@
           <include name="totalValidation"/>
         </methods>
       </class> <!-- practise.AppiumFramework.Ecommerce_tc_4 -->
+      <class name="practise.AppiumFramework.ApiDemoTest">
+        <methods>
+          <include name="apiDemo"/>
+        </methods>
+      </class> <!-- practise.AppiumFramework.ApiDemoTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
