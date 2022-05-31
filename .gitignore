@@ -4,6 +4,8 @@ out
 out/*
 
 #resultado del test
+Reports
+Reports/*
 test-output
 test-output/*
 
