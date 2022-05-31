@@ -2,6 +2,14 @@
 .idea/*
 out
 out/*
+
+#resultado del test
+test-output
+test-output/*
+
+# Screenshot en el raiz 
+*.png
+
 target/classes/*
 target/test-classes/*
 target/surefire-reports/*

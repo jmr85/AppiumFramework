@@ -3,6 +3,7 @@ package practise.AppiumFramework;
 import java.io.IOException;
 
 import java.util.concurrent.TimeUnit;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import io.appium.java_client.android.AndroidDriver;
@@ -12,8 +13,8 @@ import pageObjects.HomePage;
 import pageObjects.Preferences;
 
 public class ApiDemoTest extends base {
-
-	@Test
+	
+	@Test(dataProvider="InputData",dataProviderClass=TestData.class)
 	public void apiDemo(String input) throws IOException, InterruptedException {
 		// TODO Auto-generated method stub
 		

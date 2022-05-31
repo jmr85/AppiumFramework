@@ -7,6 +7,10 @@ import java.net.ServerSocket;
 import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import io.appium.java_client.android.AndroidDriver;
@@ -20,7 +24,7 @@ public class base {
 
 	public AppiumDriverLocalService startServer() {
 		//
-		boolean flag = checkIfServerIsRunnning(4723);
+		boolean flag = checkIfServerIsRunnning(4723);// port number
 		if (!flag) {
 
 			service = AppiumDriverLocalService.buildDefaultService();
@@ -64,8 +68,8 @@ public class base {
 		File appDir = new File("src");
 		File app = new File(appDir, (String) prop.get(appName));
 		DesiredCapabilities capabilities = new DesiredCapabilities();
-		// String device=(String) prop.get("device");
-		String device = System.getProperty("device");
+		String device = (String) prop.get("device");
+		// String device = System.getProperty("device");
 
 		if (device.contains("emulator")) {
 			startEmulator();
@@ -81,6 +85,11 @@ public class base {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 		return driver;
+	}
+
+	public static void getScreenshot(String s) throws IOException {
+		File scrfile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(scrfile, new File(System.getProperty("user.dir") + "\\" + s + ".png"));
 	}
 
 }

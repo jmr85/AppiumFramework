@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import io.appium.java_client.android.AndroidDriver;
@@ -16,16 +17,16 @@ public class Ecommerce_tc_4 extends base {
 	@Test
 	public void totalValidation() throws IOException, InterruptedException {
 		// 15 -General-Store.apk4.0
-		
-		service=startServer();
+
+		service = startServer();
 
 		AndroidDriver<AndroidElement> driver = capabilities("GeneralStoreApp");
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		//driver.findElement(By.id("com.androidsample.generalstore:id/nameField")).sendKeys("Hello");
-		FormPage formPage=new FormPage(driver);
+		// driver.findElement(By.id("com.androidsample.generalstore:id/nameField")).sendKeys("Hello");
+		FormPage formPage = new FormPage(driver);
 		formPage.getNameField().sendKeys("hello");
 		driver.hideKeyboard();
-		//driver.findElement(By.xpath("//*[@text='Female']")).click();
+		// driver.findElement(By.xpath("//*[@text='Female']")).click();
 		formPage.femaleOption.click();
 		driver.findElement(By.id("android:id/text1")).click();
 		driver.findElementByAndroidUIAutomator(
@@ -54,8 +55,17 @@ public class Ecommerce_tc_4 extends base {
 		total = total.substring(1);
 		double totalvalue = Double.parseDouble(total);
 		System.out.println("Total value of products: " + totalvalue);
-		Assert.assertEquals(sum, totalvalue);
+		//Assert.assertEquals(sum, totalvalue);
+		Assert.assertEquals(10.0, totalvalue);
 		service.stop();
+
+	}
+
+	@BeforeTest
+	public void killAllNodes() throws IOException, InterruptedException {
+		// taskkill /F /IM node.exe
+		Runtime.getRuntime().exec("taskkill /F /IM node.exe");
+		Thread.sleep(3000);
 
 	}
 
